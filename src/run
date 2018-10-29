@@ -24,7 +24,7 @@ get_file () {
          --output-document=$temp \
          --user-agent=${USER_AGENT} \
          --user=${HTTP_USER} \
-         --password=${HTTP_PASSWORD}
+         --password=${HTTP_PASSWORD} \
          $url \
       && mv $temp $output
   fi
@@ -33,6 +33,5 @@ get_file () {
 for day in $(./dates_since_start); do
   for protocol in "http" "https"; do
     get_file $day $protocol
+  done
 done
-
-
