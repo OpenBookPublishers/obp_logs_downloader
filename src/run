@@ -1,0 +1,38 @@
+#!/bin/sh
+
+cd $(dirname $0)
+
+get_file () {
+  local day=$1
+  local protocol=$2
+  case "$protocol" in
+    "http")
+    local dir=${HTTP_LOGS_URL}
+    local file=access.log.${day}.gz
+    ;;
+    "https")
+    local dir=${HTTPS_LOGS_URL}
+    local file=access.log.https.${day}.gz
+    ;;
+  esac
+
+  local url=${dir}/access.log.${day}.gz
+  local output=${OUTPUT_DIR}/${file}
+  local temp=${TMP_DIR}/${file}.part
+  if [ ! -s $output ]; then
+    wget --quiet \
+         --output-document=$temp \
+         --user-agent=${USER_AGENT} \
+         --user=${HTTP_USER} \
+         --password=${HTTP_PASSWORD}
+         $url \
+      && mv $temp $output
+  fi
+}
+
+for day in $(./dates_since_start); do
+  for protocol in "http" "https"; do
+    get_file $day $protocol
+done
+
+
