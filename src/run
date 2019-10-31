@@ -32,6 +32,11 @@ get_file () {
 
 for day in $(./dates_since_start); do
   for protocol in "http" "https"; do
-    get_file $day $protocol
+    if [ ! -z "$HTTP_LOGS_URL" ]; then
+      get_file $day http
+    fi
+    if [ ! -z "$HTTPs_LOGS_URL" ]; then
+      get_file $day https
+    fi
   done
 done
