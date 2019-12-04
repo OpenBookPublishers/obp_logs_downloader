@@ -35,7 +35,7 @@ for day in $(./dates_since_start); do
     if [ ! -z "$HTTP_LOGS_URL" ]; then
       get_file $day http
     fi
-    if [ ! -z "$HTTPs_LOGS_URL" ]; then
+    if [ ! -z "$HTTPS_LOGS_URL" ]; then
       get_file $day https
     fi
   done
