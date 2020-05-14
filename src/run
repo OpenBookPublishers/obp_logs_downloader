@@ -40,3 +40,18 @@ for day in $(./dates_since_start); do
     fi
   done
 done
+
+if [ ! -z "$HTTPS_LOGS_URL" ]; then
+  file=ip_addresses.db
+  url=${HTTPS_LOGS_URL}/${file}
+  output=${OUTPUT_DIR}/${file}
+  temp=${TMP_DIR}/${file}.part
+  wget --quiet \
+       --output-document=$temp \
+       --user-agent=${USER_AGENT} \
+       --user=${HTTP_USER} \
+       --password=${HTTP_PASSWORD} \
+       $url \
+  && mv -f $temp $output
+fi
+
