@@ -21,7 +21,7 @@ def generate_dates():
 
 def main():
     for day in generate_dates():
-        print day.strftime('%Y-%m-%d')
+        print(day.strftime('%Y-%m-%d'))
 
 
 if __name__ == '__main__':
